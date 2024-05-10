@@ -1,0 +1,1 @@
+# furnitures_classification
