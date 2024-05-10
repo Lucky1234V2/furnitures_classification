@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Furniture Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+        input[type="file"] {
+            margin-top: 5px;
+        }
+        input[type="text"], button {
+            padding: 10px;
+            margin-top: 5px;
+        }
+        button {
+            cursor: pointer;
+            background-color: #5c67f2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #5058e2;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e2e2e2;
+            border: 1px solid #ccc;
+        }
+        img.preview {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Furniture Classifier</h1>
+
+        <h2>Prediction</h2>
+        <form id="predictForm" method="POST">
+            <label for="predictImage">Upload an image:</label>
+            <input type="file" id="predictImage" name="file" accept="image/*" onchange="previewImage(this, 'predictPreview')"><br>
+            <img id="predictPreview" class="preview" src="#" alt="Image Preview" style="display: none;"><br>
+            <button type="button" onclick="predict()">Predict</button>
+        </form>
+
+        <h2>Training</h2>
+        <form id="trainForm" method="POST">
+            <label for="trainImage">Upload an image:</label>
+            <input type="file" id="trainImage" name="file" accept="image/*" onchange="previewImage(this, 'trainPreview')"><br>
+            <img id="trainPreview" class="preview" src="#" alt="Image Preview" style="display: none;"><br>
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category"><br>
+            <button type="button" onclick="train()">Train</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function previewImage(input, previewId) {
+            var file = input.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var preview = document.getElementById(previewId);
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function predict() {
+            const form = document.getElementById('predictForm');
+            const formData = new FormData(form);
+            
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = 'Prediction: ' + data.prediction;
+            })
+            .catch(error => {
+                document.getElementById('result').innerText = 'Error: ' + error;
+            });
+        }
+
+        function train() {
+            const form = document.getElementById('trainForm');
+            const formData = new FormData(form);
+            
+            fetch('/train', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = 'Training status: ' + data.status;
+            })
+            .catch(error => {
+                document.getElementById('result').innerText = 'Error: ' + error;
+            });
+        }
+    </script>
+</body>
+</html>
