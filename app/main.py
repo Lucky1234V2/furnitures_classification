@@ -6,7 +6,7 @@ from fastapi.responses import HTMLResponse
 import io
 
 # Charger le modèle
-model = tf.keras.models.load_model('furniture_classifier_model.h5')
+model = tf.keras.models.load_model('model/furniture_classifier_model.h5')
 
 # Créer un dictionnaire des classes basé sur les dossiers
 class_indices = {
@@ -36,7 +36,7 @@ app = FastAPI()
 
 @app.get("/")
 async def read_index():
-    with open("index.html", "r") as f:
+    with open("app/statics/index.html", "r") as f:
         html_content = f.read()
     return HTMLResponse(content=html_content)
 
@@ -81,7 +81,7 @@ async def train(file: UploadFile = File(...), category: str = Form(...)):
 
         # Réentraînement
         model.fit(img_array, labels, epochs=1, verbose=0)
-        model.save('furniture_classifier_model.h5')
+        model.save('model/furniture_classifier_model.h5')
         return {'status': 'Model trained successfully'}
     except Exception as e:
         return {'error': str(e)}

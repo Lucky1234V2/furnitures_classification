@@ -4,11 +4,9 @@ FROM python:3.9
 # Créer un répertoire pour l'application
 WORKDIR /app
 
-# Copier les fichiers nécessaires
-COPY requirements.txt .
-COPY main.py .
-COPY furniture_classifier_model.h5 .
-COPY index.html .
+COPY ./app /app
+COPY ./model /model
+COPY ./requirements.txt /app
 
 # Installer les dépendances
 RUN pip install --no-cache-dir -r requirements.txt
@@ -17,4 +15,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 80
 
 # Commande pour démarrer l'application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
