@@ -11,14 +11,25 @@ Nous souhaitons développer un modèle multimodal capable de prendre en entrée 
 - **Input Texte** : Permettre de donner une description approximative d'un meuble (fournisseur, marque, couleur, etc.) et de recevoir une ou plusieurs réponses avec un pourcentage de chance pour chaque meuble.
 - **Input Image** : Prendre une ou plusieurs photos (avec un téléphone) et donner la catégorie du meuble, son nom, le fournisseur et l'URL d'achat si possible.
 
-## Utilisation du modèle pré-entraîné
+## Ressources
+### [Repositorie Model](https://huggingface.co/Lucky12345/furniture_classifier_model/tree/main)
 
-Pour ceux qui ne souhaitent pas entraîner le modèle eux-mêmes, un modèle pré-entraîné est disponible sur Hugging Face [repositorie](https://huggingface.co/Lucky12345/furniture_classifier_model/tree/main). Vous pouvez le télécharger [ici](https://huggingface.co/Lucky12345/furniture_classifier_model/resolve/main/furniture_classifier_model.h5?download=true). Le modèle est régulièrement mis à jour.
 
-### Datasets
-Pour ceux qui souhaite obtenir le datasets le [voici](https://huggingface.co/datasets/Lucky12345/furnitures_dataset)
+### [Datasets](https://huggingface.co/datasets/Lucky12345/furnitures_dataset)
 
+## Lancement rapide
+Pour ceux qui ne souhaitent pas entraîner le modèle eux-mêmes, un modèle pré-entraîné est disponible sur Hugging Face. Vous pouvez le télécharger
+### [Télécharger le model](https://huggingface.co/Lucky12345/furniture_classifier_model/resolve/main/furniture_classifier_model.h5?download=true)
 Après téléchargement, placez le fichier `furniture_classifier_model.h5` dans le dossier `model`.
+
+## Lancement entrainement
+```sh
+   cd model
+   python train_model.py
+```
+
+
+
 
 ## Lancer le projet avec Docker
 Construisez l'image Docker :
