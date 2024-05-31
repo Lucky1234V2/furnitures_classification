@@ -3,3 +3,5 @@ uvicorn
 tensorflow
 numpy
 pillow
+keras
+pandas

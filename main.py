@@ -12,8 +12,8 @@ model = tf.keras.models.load_model('furniture_classifier_model.h5')
 class_indices = {
     'Accessoire': 0,
     'Assise': 1,
-    'Canapé': 2,
     'Cuisine': 3,
+    'Canapé': 2,
     'Déco': 4,
     'Électricité': 5,
     'Électroménager': 6,
@@ -62,23 +62,23 @@ async def predict(file: UploadFile = File(...)):
 async def train(file: UploadFile = File(...), category: str = Form(...)):
     if category not in class_indices:
         return {'error': 'Invalid category'}
-    
+
     category_index = class_indices[category]
     contents = await file.read()
-    
+
     try:
         # Charger et prétraiter l'image
         img = image.load_img(io.BytesIO(contents), target_size=(224, 224))
         img_array = image.img_to_array(img) / 255.0
         img_array = np.expand_dims(img_array, axis=0)
-        
+
         # Créer les labels pour la catégorie
         labels = np.zeros((1, num_classes))
         labels[0, category_index] = 1
 
         # Recompiler le modèle
         model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-        
+
         # Réentraînement
         model.fit(img_array, labels, epochs=1, verbose=0)
         model.save('furniture_classifier_model.h5')
