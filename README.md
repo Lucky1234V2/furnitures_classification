@@ -15,6 +15,9 @@ Nous souhaitons développer un modèle multimodal capable de prendre en entrée 
 
 Pour ceux qui ne souhaitent pas entraîner le modèle eux-mêmes, un modèle pré-entraîné est disponible sur Hugging Face [repositorie](https://huggingface.co/Lucky12345/furniture_classifier_model/tree/main). Vous pouvez le télécharger [ici](https://huggingface.co/Lucky12345/furniture_classifier_model/resolve/main/furniture_classifier_model.h5?download=true). Le modèle est régulièrement mis à jour.
 
+### Datasets
+Pour ceux qui souhaite obtenir le datasets le [voici](https://huggingface.co/datasets/Lucky12345/furnitures_dataset)
+
 Après téléchargement, placez le fichier `furniture_classifier_model.h5` dans le dossier `model`.
 
 ## Lancer le projet avec Docker
